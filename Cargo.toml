@@ -1,0 +1,18 @@
+[package]
+name = "git-report"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4.38"
+clap = { version = "4.5.16", features = ["derive"] }
+minijinja = { version = "2.1.2" }
+plotly = "0.9.0"
+tokei = "12.1.2"
+webbrowser = "1.0.1"
+
+[profile.release]
+strip = true  # Automatically strip symbols from the binary.
+opt-level = "z"  # Optimize for size.
+codegen-units = 1
+panic = "abort"
