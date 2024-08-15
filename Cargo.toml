@@ -1,0 +1,14 @@
+[package]
+name = "git-report"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.16", features = ["derive"] }
+datetime = "0.5.2"
+minijinja = { version = "2.1.2", features = ["loader"] }
+once_cell = "1.19.0"
+plotly = "0.9.0"
+polars = { version = "0.41.0", features = ["lazy", "partition_by", "strings"] }
+tokei = "12.1.2"
+webbrowser = "1.0.1"
