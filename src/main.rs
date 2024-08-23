@@ -92,7 +92,7 @@ fn plot_commit_history(commits: &Vec<Commit>) -> Plot {
     }
 
     let layout = Layout::new()
-        .width(PLOT_WIDTH)
+        .width(PLOT_WIDTH - 50) // make the legend fit in the containing div
         .bar_mode(BarMode::Stack)
         // .x_axis(Axis::new().range(date_range))
         .title(Title::from("Commit activity per author"));
