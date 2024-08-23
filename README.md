@@ -8,6 +8,7 @@ Get a report on a git repository.
 
 ## Installation
 Make sure you've installed cargo, follow the instructions [here](https://doc.rust-lang.org/cargo/getting-started/installation.html).
+Note that you need to add `$HOME/.cargo/bin` to your `$PATH`.
 
 Then run the following command:
 ```shell
