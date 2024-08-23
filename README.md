@@ -21,3 +21,6 @@ git-report /path/to/repo
 ```
 
 This will open a browser window with the report.
+
+## Example report
+![Example report](docs/screenshot.png)
