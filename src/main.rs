@@ -51,7 +51,7 @@ fn get_commit_log(path: &PathBuf) -> Vec<Commit> {
         .arg("--format=%as,%cn")
         .current_dir(path)
         .output()
-        .expect("Failed to execute command");
+        .expect("Failed to execute git command");
     let result = String::from_utf8(output.stdout).expect("Unable to parse git command output");
 
     // split the results into a vec of tuples
