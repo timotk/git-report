@@ -48,8 +48,7 @@ fn get_repo_languages(repo_path: &PathBuf) -> Vec<(tokei::LanguageType, tokei::L
 fn get_commit_log(path: &PathBuf) -> Vec<Commit> {
     let output = Command::new("git")
         .arg("log")
-        .arg("--date=short")
-        .arg("--pretty=format:%ad,%cn")
+        .arg("--format=%as,%cn")
         .current_dir(path)
         .output()
         .expect("Failed to execute command");
