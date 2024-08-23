@@ -9,7 +9,7 @@
 
 <body>
     <main>
-        <h1>Git Report</h1>
+        <h1>Git Report<span id="subtitle">{{ path }}</span></h1>
         <div>
             <h2>Commit Activity</h2>
             {{ activity_plot |safe }}
@@ -53,7 +53,7 @@
     }
 
     main {
-        max-width: 1500px;
+        max-width: 1200px;
         margin: auto;
     }
 
@@ -78,6 +78,14 @@
 
     tr>td:not(:first-child) {
         text-align: right;
+    }
+
+    #subtitle {
+        margin-left: 1em;
+        color: silver;
+        font-weight: normal;
+        margin-left: 0.5rem;
+        font-size: 1.8rem;
     }
 </style>
 

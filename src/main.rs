@@ -49,7 +49,7 @@ fn get_commit_log(path: &PathBuf) -> Vec<Commit> {
     let output = Command::new("git")
         .arg("log")
         .arg("--date=short")
-        .arg("--pretty=format:%ad,%an")
+        .arg("--pretty=format:%ad,%cn")
         .current_dir(path)
         .output()
         .expect("Failed to execute command");
@@ -169,6 +169,7 @@ fn main() {
     let languages = get_repo_languages(&cli.path);
 
     let ctx = context! {
+    path => cli.path,
     activity_plot => activity_plot.to_inline_html(None),
     commits_per_author_plot => commits_per_author_plot.to_inline_html(None),
     languages => languages
