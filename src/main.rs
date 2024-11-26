@@ -18,6 +18,7 @@ const PLOT_WIDTH: usize = 1200;
 #[command(version, about, long_about = None)]
 struct Cli {
     /// Path to a git repository
+    #[arg(default_value = ".")]
     path: PathBuf,
 }
 
