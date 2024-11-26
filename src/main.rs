@@ -144,23 +144,41 @@ fn render_template(ctx: Value) -> String {
     template.render(ctx).unwrap()
 }
 
+fn is_valid_git_directory(path: &PathBuf) -> bool {
+    let output = Command::new("git")
+        .arg("rev-parse")
+        .arg("--show-toplevel")
+        .current_dir(path)
+        .output()
+        .expect("Failed to execute git command");
+
+    // parse the output to check if it is a valid git directory
+    // a failure would contain: fatal: not a git repository (or any of the parent directories)
+
+    if output.status.success() {
+        true
+    } else {
+        let stderr = String::from_utf8(output.stderr).expect("Unable to parse git command output");
+        if stderr.contains("fatal: not a git repository") {
+            eprintln!("Error: Path is not a valid git repository: {:?}", path);
+        } else {
+            eprintln!(
+                "Error: Unable to determine if path is a valid git repository: {:?}",
+                path
+            );
+        }
+        std::process::exit(1);
+    }
+}
+
 fn main() {
     let cli = Cli::parse();
-
     // Check if path exists, if not, error
     if !cli.path.exists() {
         eprintln!("Error: Path does not exist: {:?}", cli.path);
         std::process::exit(1);
     }
-
-    // check if path is a valid git repository
-    if !cli.path.join(".git").exists() {
-        eprintln!(
-            "Error: Path is not a git repository. Expected a '.git' directory at {:?}/.git",
-            cli.path
-        );
-        std::process::exit(1);
-    }
+    is_valid_git_directory(&cli.path);
 
     let commits = get_commit_log(&cli.path);
     let activity_plot = plot_commit_history(&commits);
