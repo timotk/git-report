@@ -6,7 +6,7 @@ use plotly::{
     layout::{BarMode, Margin},
     Bar, Layout, Plot,
 };
-use std::process::Command;
+use std::{path, process::Command};
 use std::{cmp::min, hash::Hash};
 use std::{collections::HashMap, path::PathBuf};
 use tokei::{Config, Languages};
@@ -178,16 +178,17 @@ fn main() {
         eprintln!("Error: Path does not exist: {:?}", cli.path);
         std::process::exit(1);
     }
-    is_valid_git_directory(&cli.path);
 
-    let commits = get_commit_log(&cli.path);
+    let repository_path = path::absolute(cli.path).expect("Unable to get absolute path");
+
+    let commits = get_commit_log(&repository_path);
     let activity_plot = plot_commit_history(&commits);
     let commits_per_author_plot = plot_commit_count_per_author(&commits, 10);
 
-    let languages = get_repo_languages(&cli.path);
+    let languages = get_repo_languages(&repository_path);
 
     let ctx = context! {
-    path => cli.path,
+    path => repository_path,
     activity_plot => activity_plot.to_inline_html(None),
     commits_per_author_plot => commits_per_author_plot.to_inline_html(None),
     languages => languages
