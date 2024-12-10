@@ -6,9 +6,9 @@ use plotly::{
     layout::{BarMode, Margin},
     Bar, Layout, Plot,
 };
-use std::{path, process::Command};
 use std::{cmp::min, hash::Hash};
 use std::{collections::HashMap, path::PathBuf};
+use std::{path, process::Command};
 use tokei::{Config, Languages};
 
 static TEMPLATE: &str = include_str!("../templates/index.html");
